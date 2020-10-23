@@ -3,6 +3,15 @@ plugins {
     id 'kotlin-android'
 }
 
+def gitDescribe = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--always', '--tags', '--dirty=-dirty'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 android {
     compileSdk 30
 
@@ -10,8 +19,7 @@ android {
         applicationId "com.google.android.apps.photos"
         minSdk 29
         targetSdk 30
-        versionCode 1
-        versionName "0.1"
+        versionNameSuffix "-$gitDescribe"
     }
 
     buildTypes {
