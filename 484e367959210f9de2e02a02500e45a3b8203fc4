@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59d9548_40b79a32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-09-30T20:13:06Z",
+      "side": 1,
+      "message": "PTAL.\n\nCould also do SPDX.\n\nStudio makes it really easy. We could probably get Seedvault done this way as well.",
+      "revId": "484e367959210f9de2e02a02500e45a3b8203fc4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
