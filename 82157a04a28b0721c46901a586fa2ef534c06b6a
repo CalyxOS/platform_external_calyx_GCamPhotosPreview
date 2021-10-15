@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae5fe570_3a89edbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-10-15T20:27:01Z",
+      "side": 1,
+      "message": "I\u0027ve seen apps make the opposite mistake.\n\nShare let you choose app and then \"just once / always\"\n",
+      "revId": "82157a04a28b0721c46901a586fa2ef534c06b6a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
