@@ -16,6 +16,24 @@
       "message": "and this still works fine with 8.x? or 8.2.400 or above specifically.",
       "revId": "303d0646dd8c29fafb7d5a393b52d9637aa3d9c6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e188e05_1aec9c9e",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-28T19:08:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c5edf46f_b2280d97",
+      "revId": "303d0646dd8c29fafb7d5a393b52d9637aa3d9c6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
