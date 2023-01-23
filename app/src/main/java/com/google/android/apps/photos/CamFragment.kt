@@ -27,7 +27,7 @@ import androidx.fragment.app.Fragment
 class CamFragment : Fragment() {
 
     companion object {
-        fun newInstance(pendingIntent: PendingIntent) = CamFragment().apply {
+        fun newInstance(pendingIntent: PendingIntent?) = CamFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("pendingIntent", pendingIntent)
             }
@@ -43,7 +43,9 @@ class CamFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.e(TAG, "Going back to camera")
-        requireArguments().getParcelable<PendingIntent>("pendingIntent")!!.send()
+        val pendingIntent : PendingIntent? =
+            requireArguments().getParcelable<PendingIntent>("pendingIntent")
+        pendingIntent?.send()
         requireActivity().finish()
     }
 

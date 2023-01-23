@@ -21,7 +21,10 @@ import android.net.Uri
 import androidx.recyclerview.widget.DiffUtil
 
 sealed class PagerItem(open val id: Long) {
-    data class CamItem(override val id: Long = -1, val pendingIntent: PendingIntent) : PagerItem(id)
+    data class CamItem(
+        override val id: Long = -1,
+        val pendingIntent: PendingIntent?,
+    ) : PagerItem(id)
     data class UriItem(
         override val id: Long,
         val uri: Uri,

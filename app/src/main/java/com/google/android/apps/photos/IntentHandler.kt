@@ -21,8 +21,6 @@ import android.content.ContentResolver.*
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA
-import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -38,7 +36,9 @@ class IntentHandler(private val context: Context) {
 
     private val mediaManager = MediaManager(context)
 
-    fun isSecure(intent: Intent) = intent.getBooleanExtra(SECURE_MODE, false)
+    fun isSecure(intent: Intent) = intent.action?.contains("REVIEW_SECURE") == true
+
+    fun isGcamSecureMode(intent: Intent) = intent.getBooleanExtra(SECURE_MODE, false)
 
     fun handleIntent(intent: Intent): Flow<List<PagerItem>> = flow {
         if (BuildConfig.DEBUG) log(intent)
@@ -50,17 +50,23 @@ class IntentHandler(private val context: Context) {
         val mimeType = intent.type
         val uriIsReady = mediaManager.isUriReady(uri)
         val items = ArrayList<PagerItem>().apply {
-            add(PagerItem.CamItem(pendingIntent = getCamPendingIntent(intent, isSecure)))
+            add(PagerItem.CamItem(pendingIntent = getCamPendingIntentOrNull(intent, isSecure)))
             add(PagerItem.UriItem(mediaManager.getIdFromUri(uri), uri, mimeType, uriIsReady))
         }
         emit(items)
 
         // create PagerItems for other Uris
         val newItems = ArrayList(items)
-        val extraItems: List<PagerItem.UriItem> = if (isSecure) {
-            val secureIds = (intent.extras?.getSerializable(EXTRA_SECURE_IDS) as LongArray).toList()
+        val extraItems: List<PagerItem.UriItem> = if (isGcamSecureMode(intent)) {
+            // Google Camera uses EXTRA_SECURE_IDS to specify additional photos.
+            val secureIds =
+                (intent.extras?.getSerializable(EXTRA_SECURE_IDS) as LongArray).toList()
             Log.d(TAG, "secureIds: $secureIds")
             mediaManager.getUriItemsFromSecureIds(secureIds)
+        } else if (isSecure) {
+            // Per the REVIEW_SECURE documentation, ClipData is used to specify additional
+            // photos, if any. We aim to support this for non-GCam apps that respect AOSP.
+            mediaManager.getUriItemsFromUriAndClipData(uri, mimeType, intent.clipData)
         } else {
             mediaManager.getUriItemsFromFirstUri(uri, mimeType)
         }
@@ -100,20 +106,10 @@ class IntentHandler(private val context: Context) {
         }
     }
 
-    private fun getCamPendingIntent(intent: Intent, isSecure: Boolean): PendingIntent {
+    private fun getCamPendingIntentOrNull(intent: Intent, isSecure: Boolean): PendingIntent? {
         val camIntentKey = if (isSecure) INTENT_CAM_SECURE else INTENT_CAM
-        return intent.getParcelableExtra(camIntentKey) ?: PendingIntent.getActivity(
-            context, 0, getCamIntent(isSecure), PendingIntent.FLAG_IMMUTABLE
-        )
+        return intent.getParcelableExtra(camIntentKey)
     }
-
-    private fun getCamIntent(isSecure: Boolean = false) = Intent(
-        if (isSecure) INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE
-        else INTENT_ACTION_STILL_IMAGE_CAMERA
-    ).apply {
-        `package` = PACKAGE_GOOGLE_CAM
-    }
-
 
     private fun log(intent: Intent?) {
         Log.e(TAG, "intent: $intent")
