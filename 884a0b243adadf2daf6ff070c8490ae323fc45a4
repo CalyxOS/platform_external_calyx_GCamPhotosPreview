@@ -33,6 +33,23 @@
       "message": "Anything look terribly wrong here so far? Or even not-so-terribly wrong?",
       "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a437a17_4d3f6a63",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-23T23:09:35Z",
+      "side": 1,
+      "message": "I mean, for one thing, the SECURE_MODE extra is just being ignored now, so that\u0027s not ideal. Probably better to use that instead of the secureIdsSerializable null check...",
+      "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
