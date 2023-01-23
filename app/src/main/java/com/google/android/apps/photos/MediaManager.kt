@@ -16,6 +16,7 @@
 
 package com.google.android.apps.photos
 
+import android.content.ClipData
 import android.content.ContentResolver.*
 import android.content.ContentUris
 import android.content.Context
@@ -106,6 +107,23 @@ class MediaManager(context: Context) {
                     val type = c.getString(1)
                     items.add(PagerItem.UriItem(id, getUriFromId(id, type), type, ready))
                 }
+            }
+        }
+        return items
+    }
+
+    internal fun getUriItemsFromUriAndClipData(
+        uri: Uri,
+        mimeType: String?,
+        clipData: ClipData?
+    ): List<PagerItem.UriItem> {
+        val items = ArrayList<PagerItem.UriItem>()
+        items.add(PagerItem.UriItem(getIdFromUri(uri), uri, mimeType, isUriReady(uri)))
+        if (clipData != null) {
+            for (i in 0 until clipData.itemCount) {
+                val nextUri: Uri = clipData.getItemAt(i).uri ?: continue
+                items.add(PagerItem.UriItem(getIdFromUri(nextUri), nextUri, mimeType,
+                    isUriReady(nextUri)))
             }
         }
         return items
