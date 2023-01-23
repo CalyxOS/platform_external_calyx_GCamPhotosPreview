@@ -38,7 +38,9 @@ class IntentHandler(private val context: Context) {
 
     private val mediaManager = MediaManager(context)
 
-    fun isSecure(intent: Intent) = intent.getBooleanExtra(SECURE_MODE, false)
+    fun isSecure(intent: Intent) = intent.action?.contains("REVIEW_SECURE") == true
+
+    fun isGcamSecureMode(intent: Intent) = intent.getBooleanExtra(SECURE_MODE, false)
 
     fun handleIntent(intent: Intent): Flow<List<PagerItem>> = flow {
         if (BuildConfig.DEBUG) log(intent)
@@ -50,7 +52,8 @@ class IntentHandler(private val context: Context) {
         val mimeType = intent.type
         val uriIsReady = mediaManager.isUriReady(uri)
         val items = ArrayList<PagerItem>().apply {
-            add(PagerItem.CamItem(pendingIntent = getCamPendingIntent(intent, isSecure)))
+            // add(PagerItem.CamItem(pendingIntent = getCamPendingIntent(intent, isSecure)))
+            add(PagerItem.CamItem(pendingIntent = null))
             add(PagerItem.UriItem(mediaManager.getIdFromUri(uri), uri, mimeType, uriIsReady))
         }
         emit(items)
@@ -58,9 +61,17 @@ class IntentHandler(private val context: Context) {
         // create PagerItems for other Uris
         val newItems = ArrayList(items)
         val extraItems: List<PagerItem.UriItem> = if (isSecure) {
-            val secureIds = (intent.extras?.getSerializable(EXTRA_SECURE_IDS) as LongArray).toList()
-            Log.d(TAG, "secureIds: $secureIds")
-            mediaManager.getUriItemsFromSecureIds(secureIds)
+            if (isGcamSecureMode(intent)) {
+                // Google Camera uses EXTRA_SECURE_IDS to specify additional photos.
+                val secureIds =
+                    (intent.extras?.getSerializable(EXTRA_SECURE_IDS) as LongArray).toList()
+                Log.d(TAG, "secureIds: $secureIds")
+                mediaManager.getUriItemsFromSecureIds(secureIds)
+            } else {
+                // Per the REVIEW_SECURE documentation, ClipData is used to specify additional
+                // photos, if any. We aim to support this for non-GCam apps that respect AOSP.
+                mediaManager.getUriItemsFromUriAndClipData(uri, mimeType, intent.clipData)
+            }
         } else {
             mediaManager.getUriItemsFromFirstUri(uri, mimeType)
         }
