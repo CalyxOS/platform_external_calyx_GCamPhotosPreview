@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3635ee3c_5af2488e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-23T23:05:45Z",
+      "side": 1,
+      "message": "Aperture doesn\u0027t currently track or send a list of photos that should be accessible by a secure photo viewer, so this cannot be fully tested yet. It\u0027s unclear what other camera apps may already support this (OpenCamera? not sure). Google Camera doesn\u0027t seem to use ClipData, just its own extra data that GCamPhotosPreview already supports.\n\nThis does appear to allow Aperture to launch GCamPhotosPreview from the secure lockscreen for viewing the last-taken photo, at least.",
+      "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
