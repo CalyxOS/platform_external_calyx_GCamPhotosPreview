@@ -78,7 +78,7 @@ class MainActivity : FragmentActivity() {
         if (savedInstanceState != null) return // not newly created, don't react
 
         // handle intent
-        if (intent.`package` == packageName && intent.action?.contains("REVIEW") == true) {
+        if (intent.action?.contains("REVIEW") == true) {
             if (viewModel.isSecure(intent)) onLaunchedWhileLocked()
 
             if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED) {
