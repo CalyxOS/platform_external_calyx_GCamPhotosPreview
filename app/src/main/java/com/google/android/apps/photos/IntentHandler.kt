@@ -38,7 +38,7 @@ class IntentHandler(private val context: Context) {
 
     private val mediaManager = MediaManager(context)
 
-    fun isSecure(intent: Intent) = intent.getBooleanExtra(SECURE_MODE, false)
+    fun isSecure(intent: Intent) = intent.action?.contains("REVIEW_SECURE") == true
 
     fun handleIntent(intent: Intent): Flow<List<PagerItem>> = flow {
         if (BuildConfig.DEBUG) log(intent)
@@ -58,9 +58,18 @@ class IntentHandler(private val context: Context) {
         // create PagerItems for other Uris
         val newItems = ArrayList(items)
         val extraItems: List<PagerItem.UriItem> = if (isSecure) {
-            val secureIds = (intent.extras?.getSerializable(EXTRA_SECURE_IDS) as LongArray).toList()
-            Log.d(TAG, "secureIds: $secureIds")
-            mediaManager.getUriItemsFromSecureIds(secureIds)
+            val secureIdsSerializable = intent.extras?.getSerializable(EXTRA_SECURE_IDS)
+
+            if (secureIdsSerializable != null) {
+                // Google Camera uses EXTRA_SECURE_IDS instead to specify additional photos.
+                val secureIds = (secureIdsSerializable as LongArray).toList()
+                Log.d(TAG, "secureIds: $secureIds")
+                mediaManager.getUriItemsFromSecureIds(secureIds)
+            } else {
+                // Per the REVIEW_SECURE documentation, ClipData is used to specify additional
+                // photos, if any. We aim to support this for apps that respect AOSP.
+                mediaManager.getUriItemsFromUriAndClipData(uri, mimeType, intent.clipData)
+            }
         } else {
             mediaManager.getUriItemsFromFirstUri(uri, mimeType)
         }
