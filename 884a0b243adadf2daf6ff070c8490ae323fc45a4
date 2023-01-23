@@ -70,6 +70,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51140542_0fcf731e",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-23T23:45:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a437a17_4d3f6a63",
+      "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2125ba5f_2ef5121d",
@@ -83,6 +101,24 @@
       "writtenOn": "2023-01-23T23:41:45Z",
       "side": 1,
       "message": "This gets a PendingIntent to open Google Camera specifically when you swipe right to go back to the camera, so if GCamPhotosPreview is launched from Aperture and you leave the preview (at least in this way), Google Camera will open instead, if it is installed.\n\nI can\u0027t find a good, reliable, and guaranteed-unspoofable way to retrieve where the Intent came from (anyone know of one?), and we certainly don\u0027t want to unintentionally launch an arbitrary app from the lockscreen.",
+      "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b50e416_79d80247",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-23T23:45:35Z",
+      "side": 1,
+      "message": "Things appear to work fine if we simply leave the activity and don\u0027t re-launch Google Camera (or anything else) -- it returns to Google Camera or to Aperture on its own when the GCamPhotosPreview closes, at least in my testing -- but I need more info about what was trying to be addressed by launching the Google Camera activity in order to know if this idea makes sense. Maybe we don\u0027t even need the code for that anymore, maybe we do.",
+      "parentUuid": "2125ba5f_2ef5121d",
       "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
