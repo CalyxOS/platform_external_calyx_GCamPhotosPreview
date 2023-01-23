@@ -68,6 +68,23 @@
       "message": "I mean, for one thing, the SECURE_MODE extra is just being ignored now, so that\u0027s not ideal. Probably better to use that instead of the secureIdsSerializable null check...",
       "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2125ba5f_2ef5121d",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-23T23:41:45Z",
+      "side": 1,
+      "message": "This gets a PendingIntent to open Google Camera specifically when you swipe right to go back to the camera, so if GCamPhotosPreview is launched from Aperture and you leave the preview (at least in this way), Google Camera will open instead, if it is installed.\n\nI can\u0027t find a good, reliable, and guaranteed-unspoofable way to retrieve where the Intent came from (anyone know of one?), and we certainly don\u0027t want to unintentionally launch an arbitrary app from the lockscreen.",
+      "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
