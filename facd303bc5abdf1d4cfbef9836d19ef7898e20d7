@@ -50,6 +50,23 @@
       "message": "?: continue\n\nthen you don\u0027t need the if nesting below.",
       "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "994861fd_1e5cd8a0",
+        "filename": "app/src/main/java/com/google/android/apps/photos/PagerItem.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T14:15:45Z",
+      "side": 1,
+      "message": "Line too long",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
