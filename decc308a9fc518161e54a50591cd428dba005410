@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cef1348c_e014fb96",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T14:20:54Z",
+      "side": 1,
+      "message": "Looks like this wouldn\u0027t be needed",
+      "revId": "decc308a9fc518161e54a50591cd428dba005410",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
