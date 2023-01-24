@@ -18,6 +18,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9498f950_b2a9b65d",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T17:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cef1348c_e014fb96",
+      "revId": "decc308a9fc518161e54a50591cd428dba005410",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f79e8bdb_8a2fb84d",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-24T16:29:21Z",
       "side": 1,
       "message": "Should be `0 until clipData.itemCount` or it tries to index beyond the count",
+      "revId": "decc308a9fc518161e54a50591cd428dba005410",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cda790f4_103c5a25",
+        "filename": "app/src/main/java/com/google/android/apps/photos/MediaManager.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T17:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f79e8bdb_8a2fb84d",
       "revId": "decc308a9fc518161e54a50591cd428dba005410",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }

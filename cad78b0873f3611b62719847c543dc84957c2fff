@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbf11882_3c312ba9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T17:01:30Z",
+      "side": 1,
+      "message": "It\u0027s looking like using ClipData for secondary media items is nothing more than aspirational, since none of the gallery apps I\u0027ve tried support it:\n- Google Photos\n- Google Gallery\n- Simple Gallery (no support for android.provider.action.REVIEW_SECURE)\n- Aves / Aves Libre (no support for android.provider.action.REVIEW_SECURE)\n- Gallery, built-in (no support for android.provider.action.REVIEW_SECURE)\n- Other various top results for Gallery from Aurora Store\n\nAdhering to specifications is nice, but apparently nothing does, so the ClipData support doesn\u0027t seem useful right now.",
+      "revId": "cad78b0873f3611b62719847c543dc84957c2fff",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
