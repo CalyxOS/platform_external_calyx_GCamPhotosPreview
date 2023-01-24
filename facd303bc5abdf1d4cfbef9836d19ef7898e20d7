@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a9bb2c_3437d06d",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-01-24T13:15:55Z",
+      "side": 1,
+      "message": "why remove the pending intent here?",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7319d0b8_e20d81bc",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-01-24T13:15:55Z",
+      "side": 1,
+      "message": "better to put this `if` into the top level hierarchy, not below `isSecure`.",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a473332_5a1a3fbc",
+        "filename": "app/src/main/java/com/google/android/apps/photos/MediaManager.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-01-24T13:15:55Z",
+      "side": 1,
+      "message": "?: continue\n\nthen you don\u0027t need the if nesting below.",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}

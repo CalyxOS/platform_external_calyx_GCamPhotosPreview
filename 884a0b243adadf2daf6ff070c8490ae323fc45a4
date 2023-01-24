@@ -121,6 +121,24 @@
       "parentUuid": "2125ba5f_2ef5121d",
       "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff531376_fb3b2287",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-01-24T13:15:55Z",
+      "side": 1,
+      "message": "If they don\u0027t call you with startActivtyForResult, I don\u0027t think you can find out the sender of the intent.\n\nGoogle cam gives us the pending intent, so we should continue to use it.",
+      "parentUuid": "6b50e416_79d80247",
+      "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
