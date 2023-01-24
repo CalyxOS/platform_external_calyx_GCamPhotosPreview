@@ -18,6 +18,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f110cce_1696b676",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T14:17:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "11a9bb2c_3437d06d",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7319d0b8_e20d81bc",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-24T13:15:55Z",
       "side": 1,
       "message": "better to put this `if` into the top level hierarchy, not below `isSecure`.",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76e1bb3_a68ce4d8",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T14:17:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7319d0b8_e20d81bc",
       "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
@@ -52,6 +88,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b4e2bc_a71309b2",
+        "filename": "app/src/main/java/com/google/android/apps/photos/MediaManager.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T14:17:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a473332_5a1a3fbc",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "994861fd_1e5cd8a0",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-01-24T14:15:45Z",
       "side": 1,
       "message": "Line too long",
+      "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c744914d_9ee76078",
+        "filename": "app/src/main/java/com/google/android/apps/photos/PagerItem.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T14:17:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "994861fd_1e5cd8a0",
       "revId": "facd303bc5abdf1d4cfbef9836d19ef7898e20d7",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }

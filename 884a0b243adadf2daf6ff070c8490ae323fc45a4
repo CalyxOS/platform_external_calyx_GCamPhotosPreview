@@ -139,6 +139,24 @@
       "parentUuid": "6b50e416_79d80247",
       "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e43ac436_1de3c89e",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-01-24T14:17:23Z",
+      "side": 1,
+      "message": "Done. Oops, missed that initially",
+      "parentUuid": "ff531376_fb3b2287",
+      "revId": "884a0b243adadf2daf6ff070c8490ae323fc45a4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
