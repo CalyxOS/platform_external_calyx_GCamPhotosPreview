@@ -34,6 +34,24 @@
       "parentUuid": "c5edf46f_b2280d97",
       "revId": "303d0646dd8c29fafb7d5a393b52d9637aa3d9c6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65ce5f2b_e5a5ae53",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-09-10T14:33:01Z",
+      "side": 1,
+      "message": "Yeah, it only doesn\u0027t re-add it, if it is already there, by matching ID.",
+      "parentUuid": "c5edf46f_b2280d97",
+      "revId": "303d0646dd8c29fafb7d5a393b52d9637aa3d9c6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
