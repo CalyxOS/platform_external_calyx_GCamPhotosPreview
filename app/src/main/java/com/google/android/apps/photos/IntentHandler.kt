@@ -24,6 +24,7 @@ import android.net.Uri
 import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA
 import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE
 import android.util.Log
+import com.davemorrissey.labs.subscaleview.BuildConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

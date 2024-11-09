@@ -5,6 +5,7 @@ plugins {
 
 android {
     compileSdk 31
+    namespace "com.google.android.apps.photos"
 
     defaultConfig {
         applicationId "com.google.android.apps.photos"
