@@ -27,6 +27,7 @@ import android.content.Intent.ACTION_SEND
 import android.content.Intent.ACTION_VIEW
 import android.content.Intent.EXTRA_STREAM
 import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -55,6 +56,8 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.ORIENTATION_USE_EXIF
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class ImageFragment : Fragment() {
 
@@ -82,12 +85,23 @@ class ImageFragment : Fragment() {
         if (it.resultCode == RESULT_OK) viewModel.onItemDeleted(currentItem!!)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // our fragments don't get recreated for changes, so listen to changes here
+        val id = requireArguments().getLong("id")
+
+        viewModel.items.observe(viewLifecycleOwner) { items ->
+            val item = items.find { it.id == id } as PagerItem.UriItem?
+            if (item != null) setItem(item)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View = inflater.inflate(R.layout.fragment_image, container, false).apply {
-        val id = requireArguments().getLong("id")
         imageView = findViewById(R.id.imageView)
         progressBar = findViewById(R.id.progressBar)
         playButton = findViewById(R.id.playButton)
@@ -95,12 +109,6 @@ class ImageFragment : Fragment() {
         editButton = findViewById(R.id.editButton)
         shareButton = findViewById(R.id.shareButton)
         deleteButton = findViewById(R.id.deleteButton)
-
-        // our fragments don't get recreated for changes, so listen to changes here
-        viewModel.items.observe(viewLifecycleOwner, { items ->
-            val item = items.find { it.id == id } as PagerItem.UriItem?
-            if (item != null) setItem(item)
-        })
     }
 
     private fun setItem(item: PagerItem.UriItem) {
@@ -121,10 +129,10 @@ class ImageFragment : Fragment() {
             imageView.setOnClickListener {
                 viewModel.toggleBottomBar()
             }
-            viewModel.showBottomBar.observe(viewLifecycleOwner, { show ->
+            viewModel.showBottomBar.observe(viewLifecycleOwner) { show ->
                 TransitionManager.beginDelayedTransition(view as ViewGroup)
                 actionBar.visibility = if (show) VISIBLE else GONE
-            })
+            }
         } else {
             progressBar.visibility = VISIBLE
             actionBar.visibility = GONE
@@ -145,13 +153,17 @@ class ImageFragment : Fragment() {
                 startActivityOrToast(intent)
             }
         }
-        val contentResolver = requireContext().contentResolver
-        val metrics = requireActivity().windowManager.currentWindowMetrics
-        val size = Size(metrics.bounds.width(), metrics.bounds.height())
         lifecycleScope.launchWhenStarted {
+            val contentResolver = requireContext().contentResolver
+            val metrics = requireActivity().windowManager.currentWindowMetrics
+            val size = Size(metrics.bounds.width(), metrics.bounds.height())
+
             withContext(Dispatchers.IO) {
-                @Suppress("BlockingMethodInNonBlockingContext")
-                val b = contentResolver.loadThumbnail(item.uri, size, null)
+                val b = suspendCoroutine<Bitmap> {  continuation ->
+                    contentResolver.loadThumbnail(item.uri, size, null).also {
+                        continuation.resume(it)
+                    }
+                }
                 withContext(Dispatchers.Main) {
                     imageView.setImage(ImageSource.bitmap(b))
                 }
