@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f32c56af_f6ce833b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-11-13T13:50:12Z",
+      "side": 1,
+      "message": "I\u0027d also be interested in this and knowing what part of this patch actually does fix the bug.",
+      "parentUuid": "d5546185_92a93028",
+      "revId": "fef2af6f368d3b477ff2eb55f8d06aaad6d30f48",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "853be62b_52b1df72",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -31,6 +49,23 @@
       "writtenOn": "2024-11-13T08:46:14Z",
       "side": 1,
       "message": "We typically do those in separate standalone commits.",
+      "revId": "fef2af6f368d3b477ff2eb55f8d06aaad6d30f48",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6202e2a1_9000d52f",
+        "filename": "app/src/main/java/com/google/android/apps/photos/ImageFragment.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-11-13T13:50:12Z",
+      "side": 1,
+      "message": "Why do you need a `suspendCoroutine` here? What was wrong with the old code?",
       "revId": "fef2af6f368d3b477ff2eb55f8d06aaad6d30f48",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
