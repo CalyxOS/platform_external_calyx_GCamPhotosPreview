@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5546185_92a93028",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-11-13T08:46:14Z",
+      "side": 1,
+      "message": "Can you provide some more details?",
+      "revId": "fef2af6f368d3b477ff2eb55f8d06aaad6d30f48",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853be62b_52b1df72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-11-13T08:46:14Z",
+      "side": 1,
+      "message": "We typically do those in separate standalone commits.",
+      "revId": "fef2af6f368d3b477ff2eb55f8d06aaad6d30f48",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "431d3de4_3c3b8251",
+        "filename": "app/src/main/java/com/google/android/apps/photos/IntentHandler.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-11-13T08:46:14Z",
+      "side": 1,
+      "message": "That doesn\u0027t look right.",
+      "revId": "fef2af6f368d3b477ff2eb55f8d06aaad6d30f48",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
