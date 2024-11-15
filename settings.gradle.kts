@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "GCamPhotosPreview"
-include ':app'
+include(":app")
