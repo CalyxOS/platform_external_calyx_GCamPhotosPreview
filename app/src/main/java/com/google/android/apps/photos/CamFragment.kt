@@ -17,6 +17,7 @@
 package com.google.android.apps.photos
 
 import android.app.PendingIntent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -43,7 +44,13 @@ class CamFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.e(TAG, "Going back to camera")
-        requireArguments().getParcelable<PendingIntent>("pendingIntent")!!.send()
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelable("pendingIntent", PendingIntent::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            requireArguments().getParcelable("pendingIntent")
+        }
+        pendingIntent!!.send()
         requireActivity().finish()
     }
 

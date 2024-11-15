@@ -50,10 +50,12 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStarted
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.ORIENTATION_USE_EXIF
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ImageFragment : Fragment() {
@@ -148,9 +150,8 @@ class ImageFragment : Fragment() {
         val contentResolver = requireContext().contentResolver
         val metrics = requireActivity().windowManager.currentWindowMetrics
         val size = Size(metrics.bounds.width(), metrics.bounds.height())
-        lifecycleScope.launchWhenStarted {
-            withContext(Dispatchers.IO) {
-                @Suppress("BlockingMethodInNonBlockingContext")
+        lifecycleScope.launch(Dispatchers.IO) {
+            withStarted {
                 val b = contentResolver.loadThumbnail(item.uri, size, null)
                 withContext(Dispatchers.Main) {
                     imageView.setImage(ImageSource.bitmap(b))
