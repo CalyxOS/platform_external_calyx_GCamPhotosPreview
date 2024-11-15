@@ -93,11 +93,6 @@ class MainActivity : FragmentActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        Log.e(TAG, "onNewIntent: $intent")
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         if (shutdownReceiverRegistered) unregisterReceiver(shutdownReceiver)
