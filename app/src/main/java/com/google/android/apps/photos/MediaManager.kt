@@ -16,7 +16,12 @@
 
 package com.google.android.apps.photos
 
-import android.content.ContentResolver.*
+import android.content.ContentResolver.QUERY_ARG_LIMIT
+import android.content.ContentResolver.QUERY_ARG_SORT_COLUMNS
+import android.content.ContentResolver.QUERY_ARG_SORT_DIRECTION
+import android.content.ContentResolver.QUERY_ARG_SQL_SELECTION
+import android.content.ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS
+import android.content.ContentResolver.QUERY_SORT_DIRECTION_DESCENDING
 import android.content.ContentUris
 import android.content.Context
 import android.database.ContentObserver
