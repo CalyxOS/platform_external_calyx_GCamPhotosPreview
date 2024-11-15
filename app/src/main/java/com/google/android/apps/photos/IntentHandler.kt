@@ -23,6 +23,7 @@ import android.net.Uri
 import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA
 import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE
 import android.util.Log
+import androidx.core.content.IntentCompat
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -45,7 +46,8 @@ class IntentHandler(private val context: Context) {
         val isSecure = isSecure(intent)
         val uri = intent.data!!
         // TODO see if we can get a processing preview somehow
-        val processingUri = intent.getParcelableExtra<Uri>(EXTRA_PROCESSING)
+        val processingUri =
+            IntentCompat.getParcelableExtra(intent, EXTRA_PROCESSING, Uri::class.java)
         val mimeType = intent.type
         val uriIsReady = mediaManager.isUriReady(uri)
         val items = ArrayList<PagerItem>().apply {
@@ -101,9 +103,10 @@ class IntentHandler(private val context: Context) {
 
     private fun getCamPendingIntent(intent: Intent, isSecure: Boolean): PendingIntent {
         val camIntentKey = if (isSecure) INTENT_CAM_SECURE else INTENT_CAM
-        return intent.getParcelableExtra(camIntentKey) ?: PendingIntent.getActivity(
-            context, 0, getCamIntent(isSecure), PendingIntent.FLAG_IMMUTABLE
-        )
+        return IntentCompat.getParcelableExtra(intent, camIntentKey, PendingIntent::class.java)
+            ?: PendingIntent.getActivity(
+                context, 0, getCamIntent(isSecure), PendingIntent.FLAG_IMMUTABLE
+            )
     }
 
     private fun getCamIntent(isSecure: Boolean = false) = Intent(
