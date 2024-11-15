@@ -93,7 +93,7 @@ class MainActivity : FragmentActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         Log.e(TAG, "onNewIntent: $intent")
     }
