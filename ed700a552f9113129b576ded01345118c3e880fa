@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a431df34_91a855c7",
+        "filename": "app/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-11-18T14:04:27Z",
+      "side": 1,
+      "message": "Changes like these usually require a thorough test of the app to ensure no bugs get introduced. Did you do that?",
+      "revId": "ed700a552f9113129b576ded01345118c3e880fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503a471b_5fe1b4d2",
+        "filename": "gradle/wrapper/gradle-wrapper.properties",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-11-18T14:04:27Z",
+      "side": 1,
+      "message": "That\u0027s new. What does it do? Otherwise it doesn\u0027t validate the hash?",
+      "revId": "ed700a552f9113129b576ded01345118c3e880fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5133fb48_7f0dc8c8",
+        "filename": "gradlew",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-11-18T14:04:27Z",
+      "side": 1,
+      "message": "I usually never update the executables, because of the security risk involved. I never had an issue with old executables either.",
+      "revId": "ed700a552f9113129b576ded01345118c3e880fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
