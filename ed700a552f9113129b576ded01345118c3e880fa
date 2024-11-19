@@ -71,6 +71,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f4ecc5_4eadfddd",
+        "filename": "gradle/wrapper/gradle-wrapper.properties",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-11-19T03:37:24Z",
+      "side": 1,
+      "message": "\u003e This was added automatically by the `./gradlew wrapper` task. Seems to validate the distribution URL.\n\nRef: https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:validateDistributionUrl",
+      "parentUuid": "6c31232b_5b1e7e69",
+      "revId": "ed700a552f9113129b576ded01345118c3e880fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5133fb48_7f0dc8c8",
