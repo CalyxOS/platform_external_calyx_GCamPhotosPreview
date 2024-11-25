@@ -38,9 +38,6 @@ import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.activity.result.IntentSenderRequest
@@ -50,8 +47,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.davemorrissey.labs.subscaleview.ImageSource
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.ORIENTATION_USE_EXIF
+import com.google.android.apps.photos.databinding.FragmentImageBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -67,13 +64,8 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    private lateinit var imageView: SubsamplingScaleImageView
-    private lateinit var progressBar: ProgressBar
-    private lateinit var playButton: ImageView
-    private lateinit var actionBar: ViewGroup
-    private lateinit var editButton: ImageButton
-    private lateinit var shareButton: ImageButton
-    private lateinit var deleteButton: ImageButton
+    private var _binding: FragmentImageBinding? = null
+    private val binding get() = _binding!!
 
     private var currentItem: PagerItem.UriItem? = null
 
@@ -83,16 +75,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        with(view) {
-            imageView = findViewById(R.id.imageView)
-            progressBar = findViewById(R.id.progressBar)
-            playButton = findViewById(R.id.playButton)
-            actionBar = findViewById(R.id.actionBar)
-            editButton = findViewById(R.id.editButton)
-            shareButton = findViewById(R.id.shareButton)
-            deleteButton = findViewById(R.id.deleteButton)
-        }
+        _binding = FragmentImageBinding.bind(view)
 
         // our fragments don't get recreated for changes, so listen to changes here
         val id = requireArguments().getLong("id")
@@ -102,40 +85,45 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
         })
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     private fun setItem(item: PagerItem.UriItem) {
         if (currentItem == item) return
         currentItem = item
         if (item.ready) {
-            progressBar.visibility = INVISIBLE
+            binding.progressBar.visibility = INVISIBLE
             if (item.mimeType?.startsWith("video") == true) {
                 setVideo(item)
             } else {
                 try {
-                    imageView.orientation = ORIENTATION_USE_EXIF
-                    imageView.setImage(ImageSource.uri(item.uri))
+                    binding.imageView.orientation = ORIENTATION_USE_EXIF
+                    binding.imageView.setImage(ImageSource.uri(item.uri))
                 } catch (e: Exception) {
                     Log.e(TAG, "Error setting image", e)
                 }
             }
-            imageView.setOnClickListener {
+            binding.imageView.setOnClickListener {
                 viewModel.toggleBottomBar()
             }
             viewModel.showBottomBar.observe(viewLifecycleOwner, { show ->
                 TransitionManager.beginDelayedTransition(view as ViewGroup)
-                actionBar.visibility = if (show) VISIBLE else GONE
+                binding.actionBar.visibility = if (show) VISIBLE else GONE
             })
         } else {
-            progressBar.visibility = VISIBLE
-            actionBar.visibility = GONE
+            binding.progressBar.visibility = VISIBLE
+            binding.actionBar.visibility = GONE
         }
-        editButton.setOnClickListener { onEditButtonClicked(item) }
-        shareButton.setOnClickListener { onShareButtonClicked(item) }
-        deleteButton.setOnClickListener { onDeleteButtonClicked(item) }
+        binding.editButton.setOnClickListener { onEditButtonClicked(item) }
+        binding.shareButton.setOnClickListener { onShareButtonClicked(item) }
+        binding.deleteButton.setOnClickListener { onDeleteButtonClicked(item) }
     }
 
     private fun setVideo(item: PagerItem.UriItem) {
-        playButton.visibility = VISIBLE
-        playButton.setOnClickListener {
+        binding.playButton.visibility = VISIBLE
+        binding.playButton.setOnClickListener {
             doOrUnlockFirst {
                 val intent = Intent(ACTION_VIEW).apply {
                     setDataAndType(item.uri, item.mimeType)
@@ -152,7 +140,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
                 @Suppress("BlockingMethodInNonBlockingContext")
                 val b = contentResolver.loadThumbnail(item.uri, size, null)
                 withContext(Dispatchers.Main) {
-                    imageView.setImage(ImageSource.bitmap(b))
+                    binding.imageView.setImage(ImageSource.bitmap(b))
                 }
             }
         }

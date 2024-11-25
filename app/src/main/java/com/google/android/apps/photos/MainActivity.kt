@@ -27,7 +27,6 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.util.Log
 import android.view.View.VISIBLE
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.activity.viewModels
@@ -35,7 +34,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
+import com.google.android.apps.photos.databinding.ActivityMainBinding
 
 const val TAG = "GCamPhotosPreview"
 
@@ -43,8 +42,8 @@ class MainActivity : FragmentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private lateinit var viewPager: ViewPager2
-    private lateinit var textView: TextView
+    private lateinit var binding: ActivityMainBinding
+
     private var shutdownReceiverRegistered = false
 
     private val requestPermissionLauncher = registerForActivityResult(RequestPermission()) { ok ->
@@ -57,21 +56,20 @@ class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        viewPager = findViewById(R.id.pager)
-        textView = findViewById(R.id.textView)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // set-up view pager
         val viewPagerAdapter = ViewPagerAdapter(this)
-        viewPager.offscreenPageLimit = 1 // pre-load prev/next page automatically
-        viewPager.adapter = viewPagerAdapter
+        binding.viewPager.offscreenPageLimit = 1 // pre-load prev/next page automatically
+        binding.viewPager.adapter = viewPagerAdapter
 
         // observe live data
         viewModel.items.observe(this, { items ->
             val wasEmpty = viewPagerAdapter.itemCount == 0
             Log.d(TAG, "new list: $items wasEmpty=$wasEmpty")
             viewPagerAdapter.submitList(items) {
-                if (wasEmpty) viewPager.setCurrentItem(1, false)
+                if (wasEmpty) binding.viewPager.setCurrentItem(1, false)
             }
         })
 
@@ -88,8 +86,8 @@ class MainActivity : FragmentActivity() {
             }
         } else {
             @SuppressLint("SetTextI18n")
-            textView.text = "Unknown intent:\n\n$intent"
-            textView.visibility = VISIBLE
+            binding.textView.text = "Unknown intent:\n\n$intent"
+            binding.textView.visibility = VISIBLE
         }
     }
 
