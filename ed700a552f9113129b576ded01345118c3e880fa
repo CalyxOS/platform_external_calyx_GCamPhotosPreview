@@ -36,6 +36,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f145e62_eda2e62a",
+        "filename": "app/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-11-25T09:18:17Z",
+      "side": 1,
+      "message": "Works fine.",
+      "parentUuid": "8a49cd5a_b55003dc",
+      "revId": "ed700a552f9113129b576ded01345118c3e880fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "503a471b_5fe1b4d2",
