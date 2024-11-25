@@ -20,10 +20,10 @@ import android.app.Application
 import android.content.Intent
 import androidx.annotation.UiThread
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentSkipListSet
 
@@ -31,10 +31,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private val intentHandler = IntentHandler(app)
 
-    private val _items = MutableLiveData<List<PagerItem>>()
-    val items: LiveData<List<PagerItem>> = _items
-    private val _showBottomBar = MutableLiveData(true)
-    val showBottomBar: LiveData<Boolean> = _showBottomBar
+    private val _items = MutableStateFlow<List<PagerItem>>(emptyList())
+    val items = _items.asStateFlow()
+
+    private val _showBottomBar = MutableStateFlow(true)
+    val showBottomBar = _showBottomBar.asStateFlow()
 
     private val deletedIds = ConcurrentSkipListSet<Long>()
 
@@ -43,7 +44,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun onNewIntent(intent: Intent) {
         viewModelScope.launch(Dispatchers.IO) {
             intentHandler.handleIntent(intent).collect { newItems ->
-                _items.postValue(newItems.filter {
+                _items.emit(newItems.filter {
                     val isDeleted = deletedIds.contains(it.id)
                     !isDeleted
                 })
@@ -53,13 +54,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     @UiThread
     fun toggleBottomBar() {
-        _showBottomBar.value = !_showBottomBar.value!!
+        _showBottomBar.value = !_showBottomBar.value
     }
 
     @UiThread
     fun onItemDeleted(item: PagerItem.UriItem) {
         deletedIds.add(item.id)
-        val oldItems = items.value!!
+        val oldItems = items.value
         _items.value = oldItems.filter { it.id != item.id }
     }
 
