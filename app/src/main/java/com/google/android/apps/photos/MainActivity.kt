@@ -32,9 +32,12 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestPermissi
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.apps.photos.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 const val TAG = "GCamPhotosPreview"
 
@@ -64,14 +67,14 @@ class MainActivity : FragmentActivity() {
         binding.viewPager.offscreenPageLimit = 1 // pre-load prev/next page automatically
         binding.viewPager.adapter = viewPagerAdapter
 
-        // observe live data
-        viewModel.items.observe(this, { items ->
+        // observe flow
+        viewModel.items.onEach { items ->
             val wasEmpty = viewPagerAdapter.itemCount == 0
             Log.d(TAG, "new list: $items wasEmpty=$wasEmpty")
             viewPagerAdapter.submitList(items) {
                 if (wasEmpty) binding.viewPager.setCurrentItem(1, false)
             }
-        })
+        }.launchIn(lifecycleScope)
 
         if (savedInstanceState != null) return // not newly created, don't react
 

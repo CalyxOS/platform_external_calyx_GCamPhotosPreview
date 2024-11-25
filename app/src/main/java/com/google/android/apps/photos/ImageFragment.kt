@@ -43,6 +43,7 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +51,8 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.ORIENTATION_USE_EXIF
 import com.google.android.apps.photos.databinding.FragmentImageBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 
 class ImageFragment : Fragment(R.layout.fragment_image) {
@@ -79,10 +82,15 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 
         // our fragments don't get recreated for changes, so listen to changes here
         val id = requireArguments().getLong("id")
-        viewModel.items.observe(viewLifecycleOwner, { items ->
+        viewModel.items.onEach { items ->
             val item = items.find { it.id == id } as PagerItem.UriItem?
             if (item != null) setItem(item)
-        })
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.showBottomBar.onEach { show ->
+            TransitionManager.beginDelayedTransition(view as ViewGroup)
+            binding.actionBar.isVisible = show
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun onDestroyView() {
@@ -108,10 +116,6 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
             binding.imageView.setOnClickListener {
                 viewModel.toggleBottomBar()
             }
-            viewModel.showBottomBar.observe(viewLifecycleOwner, { show ->
-                TransitionManager.beginDelayedTransition(view as ViewGroup)
-                binding.actionBar.visibility = if (show) VISIBLE else GONE
-            })
         } else {
             binding.progressBar.visibility = VISIBLE
             binding.actionBar.visibility = GONE
