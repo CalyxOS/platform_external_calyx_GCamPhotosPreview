@@ -140,6 +140,24 @@
       "parentUuid": "5133fb48_7f0dc8c8",
       "revId": "ed700a552f9113129b576ded01345118c3e880fa",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2426c6ab_ad0ecb2b",
+        "filename": "gradlew",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-12-16T12:28:14Z",
+      "side": 1,
+      "message": "I found an issue about it on the Gradle GitHub: https://github.com/gradle/actions/issues/283.\n\nFor now, as suggested by @chirayu@calyxinstitute.org, I manually compared the script with https://github.com/gradle/gradle/blob/v8.11.1/gradlew and the only difference seems to be about memory allotted to the JVM which the above issue mentions as a potential difference point from other projects.\n\nLooks fine to me otherwise.",
+      "parentUuid": "0e829d9a_d3a672b1",
+      "revId": "ed700a552f9113129b576ded01345118c3e880fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
