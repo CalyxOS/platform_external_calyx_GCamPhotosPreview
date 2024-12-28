@@ -158,6 +158,24 @@
       "parentUuid": "0e829d9a_d3a672b1",
       "revId": "ed700a552f9113129b576ded01345118c3e880fa",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a2977ba_287ae61e",
+        "filename": "gradlew",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-12-28T03:17:19Z",
+      "side": 1,
+      "message": "Marking as resolved based on above comment and Torsten\u0027s +1.",
+      "parentUuid": "2426c6ab_ad0ecb2b",
+      "revId": "ed700a552f9113129b576ded01345118c3e880fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
