@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca91822d_cef6915e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-01-03T20:26:38Z",
+      "side": 1,
+      "message": "Note: It\u0027s not supported in AOSP.\n\nWe don\u0027t build this app via AOSP, only gradle, still, just noting it down.",
+      "revId": "17654505dcb82bdcf106fe3f03991ea2ef6cbba9",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
