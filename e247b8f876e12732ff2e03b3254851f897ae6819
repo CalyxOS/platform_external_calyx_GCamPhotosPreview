@@ -16,6 +16,24 @@
       "message": "Why? 😊",
       "revId": "e247b8f876e12732ff2e03b3254851f897ae6819",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98bf18b2_d3732b1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2025-01-04T06:22:31Z",
+      "side": 1,
+      "message": "Added reason in the commit message. It is built into the kotlin and is the preferred over livedata now. This also allows us to drop an extra dependency.",
+      "parentUuid": "6bec43ce_c80f2ce5",
+      "revId": "e247b8f876e12732ff2e03b3254851f897ae6819",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
