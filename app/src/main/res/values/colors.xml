@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="photo_page_bottom_panel">#8A000000</color>
+
+    <!-- launcher icon color -->
+    <color name="ic_launcher_background">#231F20</color>
 </resources>
