@@ -1,0 +1,24 @@
+#
+# SPDX-FileCopyrightText: 2025 The Calyx Institute
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+[versions]
+activity = "1.9.3"
+androidGradlePlugin = "8.7.0"
+fragment = "1.8.5"
+lifecycle = "2.8.7"
+subsamplingScaleImageView = "3.10.0"
+kotlin = "2.1.0"
+viewpager2 = "1.1.0"
+
+[libraries]
+androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+davemorrissey-subsampling-scale-image-view = { module = "com.davemorrissey.labs:subsampling-scale-image-view-androidx", version.ref = "subsamplingScaleImageView" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
