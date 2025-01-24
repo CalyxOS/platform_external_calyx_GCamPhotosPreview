@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 android {
     compileSdk = 35
     namespace = "com.google.android.apps.photos"
