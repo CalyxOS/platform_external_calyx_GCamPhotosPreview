@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId = "com.google.android.apps.photos"
         minSdk = 30
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1000000004
         versionName = "0.4"
     }

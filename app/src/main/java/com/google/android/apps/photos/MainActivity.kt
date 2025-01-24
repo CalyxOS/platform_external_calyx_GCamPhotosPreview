@@ -17,6 +17,8 @@
 package com.google.android.apps.photos
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.READ_MEDIA_IMAGES
+import android.Manifest.permission.READ_MEDIA_VIDEO
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -24,11 +26,12 @@ import android.content.Intent
 import android.content.Intent.ACTION_SCREEN_OFF
 import android.content.IntentFilter
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -49,13 +52,14 @@ class MainActivity : FragmentActivity() {
 
     private var shutdownReceiverRegistered = false
 
-    private val requestPermissionLauncher = registerForActivityResult(RequestPermission()) { ok ->
-        if (ok) {
-            viewModel.onNewIntent(intent)
-        } else {
-            Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG).show()
+    private val requestPermissionLauncher =
+        registerForActivityResult(RequestMultiplePermissions()) { resultMap ->
+            if (resultMap.values.all { it }) {
+                viewModel.onNewIntent(intent)
+            } else {
+                Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG).show()
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,10 +86,19 @@ class MainActivity : FragmentActivity() {
         if (intent.action?.contains("REVIEW") == true) {
             if (viewModel.isSecure(intent)) onLaunchedWhileLocked()
 
-            if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED) {
+            val permissions = when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> arrayOf(
+                    READ_MEDIA_IMAGES,
+                    READ_MEDIA_VIDEO
+                )
+
+                else -> arrayOf(READ_EXTERNAL_STORAGE)
+            }
+
+            if (permissions.all { checkSelfPermission(it) == PERMISSION_GRANTED }) {
                 viewModel.onNewIntent(intent)
             } else {
-                requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
+                requestPermissionLauncher.launch(permissions)
             }
         } else {
             @SuppressLint("SetTextI18n")
