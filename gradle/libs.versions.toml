@@ -4,8 +4,8 @@
 #
 
 [versions]
-activity = "1.9.3"
-androidGradlePlugin = "8.7.0"
+activity = "1.10.0"
+androidGradlePlugin = "8.8.0"
 fragment = "1.8.5"
 lifecycle = "2.8.7"
 subsamplingScaleImageView = "3.10.0"
