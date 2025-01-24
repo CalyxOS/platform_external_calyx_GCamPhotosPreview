@@ -68,7 +68,7 @@ class IntentHandler(private val context: Context) {
 
         if (extraItems.isNotEmpty() && extraItems[0].id == items[1].id) {
             // The extra items include the first UriItem as well, so remove it from newItems first
-            newItems.removeLast()
+            newItems.removeLastOrNull()
         }
         newItems.addAll(extraItems)
         emit(newItems)
