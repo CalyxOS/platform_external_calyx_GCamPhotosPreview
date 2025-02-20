@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5dc1eb_cddb5aa5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-02-20T21:58:20Z",
+      "side": 1,
+      "message": "Hold for https://review.calyxos.org/c/CalyxOS/platform_external_calyx_GCamPhotosPreview/+/35605",
+      "revId": "d7cbd23455c7bd1ab5d53abe4e7642c361f60e36",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
