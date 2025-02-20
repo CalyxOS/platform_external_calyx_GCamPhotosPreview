@@ -16,76 +16,43 @@
 
 package com.google.android.apps.photos
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
-import android.content.Intent.ACTION_SCREEN_OFF
-import android.content.IntentFilter
-import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.util.Log
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
-import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.apps.photos.databinding.ActivityMainBinding
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 const val TAG = "GCamPhotosPreview"
 
-class MainActivity : FragmentActivity() {
-
-    private val viewModel: MainViewModel by viewModels()
+class MainActivity : Activity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var shutdownReceiverRegistered = false
-
-    private val requestPermissionLauncher = registerForActivityResult(RequestPermission()) { ok ->
-        if (ok) {
-            viewModel.onNewIntent(intent)
-        } else {
-            Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG).show()
-        }
-    }
-
+    @SuppressLint("UnsafeIntentLaunch") // we re-construct the intent in [IntentHandler]
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // set-up view pager
-        val viewPagerAdapter = ViewPagerAdapter(this)
-        binding.viewPager.offscreenPageLimit = 1 // pre-load prev/next page automatically
-        binding.viewPager.adapter = viewPagerAdapter
-
-        // observe flow
-        viewModel.items.onEach { items ->
-            val wasEmpty = viewPagerAdapter.itemCount == 0
-            Log.d(TAG, "new list: $items wasEmpty=$wasEmpty")
-            viewPagerAdapter.submitList(items) {
-                if (wasEmpty) binding.viewPager.setCurrentItem(1, false)
-            }
-        }.launchIn(lifecycleScope)
-
         if (savedInstanceState != null) return // not newly created, don't react
 
         // handle intent
-        if (intent.action?.contains("REVIEW") == true) {
-            if (viewModel.isSecure(intent)) onLaunchedWhileLocked()
-
-            if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED) {
-                viewModel.onNewIntent(intent)
+        val uri = intent.data
+        if (intent.action?.contains("REVIEW") == true && uri != null) {
+            if (IntentHandler.isSecure(intent)) setShowWhenLocked(true)
+            val mediaManager = MediaManager(applicationContext)
+            if (mediaManager.isUriReady(uri)) {
+                onUriReady(intent)
             } else {
-                requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
+                // not ready, show progress bar until ready
+                binding.progressBar.visibility = VISIBLE
+                mediaManager.whenReady(uri) {
+                    binding.progressBar.visibility = INVISIBLE
+                    onUriReady(intent)
+                }
             }
         } else {
             @SuppressLint("SetTextI18n")
@@ -94,59 +61,14 @@ class MainActivity : FragmentActivity() {
         }
     }
 
+    private fun onUriReady(intent: Intent) {
+        val i = IntentHandler.rewriteIntent(intent)
+        startActivity(i)
+        finish()
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         Log.e(TAG, "onNewIntent: $intent")
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (shutdownReceiverRegistered) unregisterReceiver(shutdownReceiver)
-    }
-
-    /**
-     * Close activity when secure app passes lock screen or screen turns off.
-     */
-    private val shutdownReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            Log.d(TAG, "shutdownReceiver: finish()")
-            finish()
-        }
-    }
-
-    private fun onLaunchedWhileLocked() {
-        setShowWhenLocked(true)
-
-        // Filter for screen off so that we can finish activity when screen is off.
-        registerReceiver(shutdownReceiver, IntentFilter(ACTION_SCREEN_OFF))
-        shutdownReceiverRegistered = true
-    }
-
-    private inner class ViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-
-        private val diffCallback = PagerItemCallback()
-        private val differ: AsyncListDiffer<PagerItem> = AsyncListDiffer(this, diffCallback)
-
-        override fun getItemId(position: Int): Long {
-            return differ.currentList[position].id
-        }
-
-        override fun containsItem(itemId: Long): Boolean {
-            return differ.currentList.any { it.id == itemId }
-        }
-
-        override fun getItemCount(): Int = differ.currentList.size
-
-        fun submitList(list: List<PagerItem>?, commitCallback: Runnable? = null) {
-            differ.submitList(list, commitCallback)
-        }
-
-        override fun createFragment(position: Int): Fragment {
-            val item = differ.currentList[position]
-            Log.d(TAG, "createFragment $position $item")
-            return if (item is PagerItem.CamItem) CamFragment.newInstance(item.pendingIntent)
-            else ImageFragment.newInstance(item.id)
-        }
-    }
-
 }
