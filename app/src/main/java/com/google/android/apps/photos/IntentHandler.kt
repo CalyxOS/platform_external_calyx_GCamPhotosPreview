@@ -16,111 +16,68 @@
 
 package com.google.android.apps.photos
 
-import android.app.PendingIntent
-import android.content.Context
+import android.content.ClipData
+import android.content.ContentUris
 import android.content.Intent
 import android.net.Uri
-import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA
-import android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE
+import android.provider.MediaStore
 import android.util.Log
-import androidx.core.content.IntentCompat
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
-private const val PACKAGE_GOOGLE_CAM = "com.google.android.GoogleCamera"
 private const val SECURE_MODE = "com.google.android.apps.photos.api.secure_mode"
-private const val INTENT_CAM = "CAMERA_RELAUNCH_INTENT_EXTRA"
-private const val INTENT_CAM_SECURE = "CAMERA_RELAUNCH_SECURE_INTENT_EXTRA"
-private const val EXTRA_PROCESSING = "processing_uri_intent_extra"
 private const val EXTRA_SECURE_IDS = "com.google.android.apps.photos.api.secure_mode_ids"
+private const val EXTRA_PROCESSING = "processing_uri_intent_extra"
 
-class IntentHandler(private val context: Context) {
+private val FILES_EXTERNAL_CONTENT_URI = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL)
 
-    private val mediaManager = MediaManager(context)
+object IntentHandler {
 
     fun isSecure(intent: Intent) = intent.getBooleanExtra(SECURE_MODE, false)
 
-    fun handleIntent(intent: Intent): Flow<List<PagerItem>> = flow {
+    fun rewriteIntent(intent: Intent): Intent {
         if (BuildConfig.DEBUG) log(intent)
 
-        val isSecure = isSecure(intent)
-        val uri = intent.data!!
-        // TODO see if we can get a processing preview somehow
-        val processingUri =
-            IntentCompat.getParcelableExtra(intent, EXTRA_PROCESSING, Uri::class.java)
-        val mimeType = intent.type
-        val uriIsReady = mediaManager.isUriReady(uri)
-        val items = ArrayList<PagerItem>().apply {
-            add(PagerItem.CamItem(pendingIntent = getCamPendingIntent(intent, isSecure)))
-            add(PagerItem.UriItem(mediaManager.getIdFromUri(uri), uri, mimeType, uriIsReady))
-        }
-        emit(items)
+        // TODO accessing the processing preview throws SecurityException, because uses signature allow-list
+        val processingUri = intent.getParcelableExtra(EXTRA_PROCESSING, Uri::class.java)
 
-        // create PagerItems for other Uris
-        val newItems = ArrayList(items)
-        val extraItems: List<PagerItem.UriItem> = if (isSecure) {
-            val secureIds = (intent.extras?.getSerializable(EXTRA_SECURE_IDS) as LongArray).toList()
-            Log.d(TAG, "secureIds: $secureIds")
-            mediaManager.getUriItemsFromSecureIds(secureIds)
-        } else {
-            mediaManager.getUriItemsFromFirstUri(uri, mimeType)
-        }
-
-        if (extraItems.isNotEmpty() && extraItems[0].id == items[1].id) {
-            // The extra items include the first UriItem as well, so remove it from newItems first
-            newItems.removeLast()
-        }
-        newItems.addAll(extraItems)
-        emit(newItems)
-
-        // return early if all are ready
-        val allReady = !newItems.any { it is PagerItem.UriItem && !it.ready }
-        if (allReady) return@flow
-
-        // create final PagerItems
-        Log.d(TAG, "Emitting final pager items")
-        val finalItems = ArrayList<PagerItem>(newItems)
-        // start waiting for items to become ready from the end
-        newItems.reversed().forEachIndexed { index, item ->
-            when (item) {
-                is PagerItem.CamItem -> { // no-op
-                }
-                // FIXME It can happen that an old photo never becomes ready,
-                //  Then the code below hangs forever, never loading most recent photos.
-                //  Hack: Therefore, we only wait for the last 10 photos
-                is PagerItem.UriItem -> if (!item.ready && item.id + 10 >= items[1].id) {
-                    // only wait-for and update items that aren't ready
-                    mediaManager.whenReady(item.uri, item.ready) {
-                        Log.i(TAG, "Item with id ${item.id} became ready")
-                        val i = finalItems.size - 1 - index // account for reversed list
-                        finalItems[i] = item.copy(ready = true)
-                        emit(ArrayList(finalItems))
+        val clipData = if (isSecure(intent)) {
+            val mainId = intent.data?.lastPathSegment?.toLongOrNull()
+            val secureIds = intent.extras?.getSerializable(EXTRA_SECURE_IDS, LongArray::class.java)
+                ?.filter { id -> id != mainId } // don't include main Uri again
+            if (secureIds.isNullOrEmpty()) {
+                null
+            } else {
+                // clip data needs to be constructed with first Uri
+                val clipDataUri =
+                    ContentUris.withAppendedId(FILES_EXTERNAL_CONTENT_URI, secureIds[0])
+                ClipData.newRawUri("", clipDataUri).apply {
+                    // now take rest of secureIds to add ClipData Items
+                    secureIds.subList(1, secureIds.size).forEach { secureId ->
+                        val uri = ContentUris.withAppendedId(FILES_EXTERNAL_CONTENT_URI, secureId)
+                        val item = ClipData.Item.Builder().setUri(uri).build()
+                        addItem(item)
                     }
                 }
             }
+        } else {
+            null // only needed to pass in media captured while phone was locked
         }
-    }
 
-    private fun getCamPendingIntent(intent: Intent, isSecure: Boolean): PendingIntent {
-        val camIntentKey = if (isSecure) INTENT_CAM_SECURE else INTENT_CAM
-        return IntentCompat.getParcelableExtra(intent, camIntentKey, PendingIntent::class.java)
-            ?: PendingIntent.getActivity(
-                context, 0, getCamIntent(isSecure), PendingIntent.FLAG_IMMUTABLE
-            )
-    }
+        // let's create a new intent that has only what we need
+        val newIntent = Intent().apply {
+            action = intent.action // use original action, should be safe
+            data = intent.data // use original URI, should be safe
+            this.clipData = clipData
+            setPackage("org.calyxos.glimpse") // TODO don't hardcode
+        }
 
-    private fun getCamIntent(isSecure: Boolean = false) = Intent(
-        if (isSecure) INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE
-        else INTENT_ACTION_STILL_IMAGE_CAMERA
-    ).apply {
-        `package` = PACKAGE_GOOGLE_CAM
+        return newIntent
     }
-
 
     private fun log(intent: Intent?) {
         Log.e(TAG, "intent: $intent")
         val extras = intent?.extras ?: return
         extras.keySet().forEach { key ->
+            @Suppress("DEPRECATION")
             val value = extras.get(key)
             Log.e(TAG, "$key: $value")
         }

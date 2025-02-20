@@ -2,6 +2,5 @@
 <resources>
     <color name="photo_page_bottom_panel">#8A000000</color>
 
-    <!-- launcher icon color -->
-    <color name="ic_launcher_background">#231F20</color>
+    <color name="ic_launcher_background">@android:color/system_accent1_600</color>
 </resources>
