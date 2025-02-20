@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-     SPDX-FileCopyrightText: 2025 The Calyx Institute
-     SPDX-License-Identifier: Apache-2.0
--->
-<resources>
-    <!-- launcher icon color -->
-    <color name="ic_launcher_background">@android:color/system_accent1_600</color>
-</resources>
