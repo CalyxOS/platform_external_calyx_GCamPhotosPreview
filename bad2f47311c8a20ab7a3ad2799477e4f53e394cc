@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2954ddbc_d1a1372f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2025-02-23T07:24:08Z",
+      "side": 1,
+      "message": "Why not put a new module in Glimpse with the required application ID and required minimal changes?",
+      "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
