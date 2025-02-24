@@ -16,6 +16,24 @@
       "message": "Why not put a new module in Glimpse with the required application ID and required minimal changes?",
       "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36efb441_69390730",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2025-02-24T18:29:11Z",
+      "side": 1,
+      "message": "Is this about not having to hard-code the package name? I think for Calyx it would be totally fine to hard-code it, however, I am aware of people on other ROMs enjoying GCamPreview as well. For those it would stop working. The not-hardcoding is supposed to help with this use-case. So I am not sure how another module in Glimpse would help, can you explain?",
+      "parentUuid": "2954ddbc_d1a1372f",
+      "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
