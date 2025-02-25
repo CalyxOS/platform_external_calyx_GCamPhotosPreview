@@ -34,6 +34,24 @@
       "parentUuid": "2954ddbc_d1a1372f",
       "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45a089fe_8447eea0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2025-02-25T02:51:59Z",
+      "side": 1,
+      "message": "It was more about not depending upon glimpse. Currently the app is standalone and would work for the foreseeable future. Glimpse already has a module for lens launcher related work. Why not a new module in it for handling the requirement for google photos in there too if Glimpse will be doing the heavy lifting in the end? All code is in one repo that way.",
+      "parentUuid": "36efb441_69390730",
+      "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
