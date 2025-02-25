@@ -52,6 +52,24 @@
       "parentUuid": "36efb441_69390730",
       "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e096fa1f_89b0e765",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2025-02-25T17:27:38Z",
+      "side": 1,
+      "message": "Still not getting what you want to achieve. You don\u0027t want to depend on Glimpse, but add a module to Glimpse, to do what exactly? Note that Glimpse in its current form doesn\u0027t need special handling for this to work. Feel free to try it out.",
+      "parentUuid": "45a089fe_8447eea0",
+      "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
