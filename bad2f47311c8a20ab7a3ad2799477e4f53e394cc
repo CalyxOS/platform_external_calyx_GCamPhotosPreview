@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "db54fbab_2125f67b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2025-04-07T16:37:26Z",
+      "side": 1,
+      "message": "```suggestion\nStrip out everything, let Glimpse do the work!\n\nIssue: calyxos#3022\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 2
+      },
+      "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2954ddbc_d1a1372f",
