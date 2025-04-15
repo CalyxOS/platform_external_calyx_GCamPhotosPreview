@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "50fd12fe_427576af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-04-15T19:11:18Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "db54fbab_2125f67b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 2
+      },
+      "revId": "bad2f47311c8a20ab7a3ad2799477e4f53e394cc",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2954ddbc_d1a1372f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
