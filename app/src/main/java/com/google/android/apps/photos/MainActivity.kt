@@ -19,13 +19,17 @@ package com.google.android.apps.photos
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager.MATCH_ALL
 import android.os.Bundle
 import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import com.google.android.apps.photos.databinding.ActivityMainBinding
 
 const val TAG = "GCamPhotosPreview"
+private const val CALYX_PACKAGE_NAME = "org.calyxos.glimpse"
+private const val LOS_PACKAGE_NAME = "org.lineageos.glimpse"
 
 class MainActivity : Activity() {
 
@@ -63,7 +67,18 @@ class MainActivity : Activity() {
 
     private fun onUriReady(intent: Intent) {
         val i = IntentHandler.rewriteIntent(intent)
-        startActivity(i)
+        // see what activities would handle the intent
+        val resolveInfos = packageManager.queryIntentActivities(i, MATCH_ALL)
+        if (resolveInfos.isEmpty()) {
+            Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show()
+        } else {
+            val packageNames = listOf(
+                CALYX_PACKAGE_NAME,
+                LOS_PACKAGE_NAME,
+            )
+            IntentHandler.setPackageName(resolveInfos, i, packageNames)
+            startActivity(i)
+        }
         finish()
     }
 

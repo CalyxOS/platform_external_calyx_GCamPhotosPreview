@@ -19,6 +19,7 @@ package com.google.android.apps.photos
 import android.content.ClipData
 import android.content.ContentUris
 import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
@@ -67,10 +68,24 @@ object IntentHandler {
             action = intent.action // use original action, should be safe
             data = intent.data // use original URI, should be safe
             this.clipData = clipData
-            setPackage("org.calyxos.glimpse") // TODO don't hardcode
         }
 
         return newIntent
+    }
+
+    /**
+     * Fixes the [intent]'s packageName to the first one in [packageNames] that is found in [resolveInfos].
+     */
+    fun setPackageName(resolveInfos: List<ResolveInfo>, intent: Intent, packageNames: List<String>) {
+        packageNames.forEach { packageName ->
+            val resolveInfo = resolveInfos.find {
+                it.activityInfo.packageName == packageName
+            }
+            if (resolveInfo != null) {
+                intent.setPackage(resolveInfo.activityInfo.packageName)
+                return
+            }
+        }
     }
 
     private fun log(intent: Intent?) {
