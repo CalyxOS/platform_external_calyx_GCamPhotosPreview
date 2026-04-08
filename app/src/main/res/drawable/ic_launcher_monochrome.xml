@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SPDX-FileCopyrightText: 2026 The Calyx Institute
+  SPDX-License-Identifier: Apache-2.0
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group>
+        <clip-path android:pathData="M0,0h108v108h-108z" />
+        <group>
+            <clip-path android:pathData="M108,0H0V108H108V0Z" />
+            <path
+                android:pathData="M74.32,71.57H40.68C39.58,71.57 38.68,70.67 38.68,69.57C38.68,68.47 39.58,67.57 40.68,67.57H72.32V45.43C72.32,44.33 73.22,43.43 74.32,43.43C75.42,43.43 76.32,44.33 76.32,45.43V69.57C76.32,70.67 75.42,71.57 74.32,71.57Z"
+                android:fillColor="#2D1E2F" />
+            <path
+                android:pathData="M67.32,64.57H33.68C32.58,64.57 31.68,63.67 31.68,62.57V38.43C31.68,37.33 32.58,36.43 33.68,36.43H67.32C68.42,36.43 69.32,37.33 69.32,38.43V62.57C69.32,63.67 68.42,64.57 67.32,64.57ZM35.68,60.57H65.32V40.43H35.68V60.57Z"
+                android:fillColor="#2D1E2F" />
+            <path
+                android:pathData="M41.62,48.45C43.02,48.45 44.16,47.31 44.16,45.91C44.16,44.51 43.02,43.37 41.62,43.37C40.22,43.37 39.08,44.51 39.08,45.91C39.08,47.31 40.22,48.45 41.62,48.45Z"
+                android:fillColor="#2D1E2F" />
+            <path
+                android:pathData="M61.41,54.3L55.01,47.13C54.63,46.71 54.09,46.46 53.52,46.46C52.95,46.46 52.41,46.7 52.03,47.13L48.48,51.1L46.95,49.39C46.19,48.54 44.73,48.54 43.97,49.39L39.59,54.3C39.06,54.89 38.93,55.73 39.26,56.45C39.58,57.17 40.3,57.63 41.09,57.63H59.93C60.72,57.63 61.43,57.17 61.76,56.45C62.09,55.73 61.95,54.89 61.43,54.3H61.41Z"
+                android:fillColor="#2D1E2F" />
+        </group>
+    </group>
+</vector>
