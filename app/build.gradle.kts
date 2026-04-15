@@ -1,21 +1,27 @@
 /*
- * SPDX-FileCopyrightText: 2024-2025 The Calyx Institute
+ * SPDX-FileCopyrightText: 2024-2026 The Calyx Institute
  * SPDX-License-Identifier: Apache-2.0
  */
+
+import com.android.build.api.dsl.ApplicationExtension
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
 
-android {
-    compileSdk = 35
+kotlin {
+    jvmToolchain(21)
+}
+
+configure<ApplicationExtension> {
+    compileSdk = 36
     namespace = "com.google.android.apps.photos"
 
     defaultConfig {
         applicationId = "com.google.android.apps.photos"
         minSdk = 35
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1000000100
         versionName = "1.0"
     }
@@ -27,18 +33,11 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
 
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = "21"
     }
     buildFeatures {
         buildConfig = true
