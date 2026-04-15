@@ -1,9 +1,9 @@
 /*
- * SPDX-FileCopyrightText: 2024 The Calyx Institute
+ * SPDX-FileCopyrightText: 2024-2026 The Calyx Institute
  * SPDX-License-Identifier: Apache-2.0
  */
 
 plugins {
-    id("com.android.application") version "8.7.3" apply false
-    id("org.jetbrains.kotlin.android") version "2.1.0" apply false
+    id("com.android.application") version "8.13.2" apply false
+    id("org.jetbrains.kotlin.android") version "2.2.0" apply false
 }
