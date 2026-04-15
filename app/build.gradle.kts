@@ -22,8 +22,8 @@ configure<ApplicationExtension> {
         applicationId = "com.google.android.apps.photos"
         minSdk = 35
         targetSdk = 36
-        versionCode = 1000000100
-        versionName = "1.0"
+        versionCode = 1000000101
+        versionName = "1.1"
     }
 
     buildTypes {
