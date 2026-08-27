@@ -57,7 +57,9 @@ class MainActivity : Activity() {
     private fun onUriReady(intent: Intent) {
         val i = IntentHandler.rewriteIntent(intent)
         // see what activities would handle the intent
-        val resolveInfos = packageManager.queryIntentActivities(i, MATCH_ALL)
+        val resolveInfos = packageManager.queryIntentActivities(i, MATCH_ALL).filterNot {
+            it.activityInfo.packageName == packageName
+        }
         if (resolveInfos.isEmpty()) {
             Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show()
         } else {
