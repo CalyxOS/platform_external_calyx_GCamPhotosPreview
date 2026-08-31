@@ -4,6 +4,7 @@
  */
 
 import com.android.build.api.dsl.ApplicationExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
@@ -11,7 +12,9 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(21)
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_1_8
+    }
 }
 
 configure<ApplicationExtension> {
