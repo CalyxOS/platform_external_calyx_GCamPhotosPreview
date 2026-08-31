@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87c25e69_9b595d2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-08-31T07:41:59Z",
+      "side": 1,
+      "message": "Thanks! Looks good. I hadn\u0027t tested without external handler, so I didn\u0027t run into that issue.",
+      "revId": "10627ca6a16fcdee91d95eab8796cd526bbad9c6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
